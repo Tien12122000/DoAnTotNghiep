@@ -1,0 +1,103 @@
+<app-header></app-header>
+<div class="right_col" role="main" style="min-height: 1592px;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Quản lý <small>Danh sách sản phẩm</small></h3>
+            </div>
+            <form method="GET" action="assets/Search">
+                <input type="hidden" name="_token" value="HaCNtdfthhzeZfCSHJZRQHwIQZJxkvcic97vCp3t">
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                        <div class="input-group">
+
+                            <input id="" type="text" name="infor" class="form-control" placeholder="Search for..." value="">
+                            <span class="input-group-btn">
+                              <input type="submit" value="Go!" class="btn btn-secondary">
+                          </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Danh sách sản phẩm</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a [routerLink]="['/admin/AddProd']" style="color: black" role="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- start project list -->
+                        <table class="table table-striped projects">
+                            <thead>
+                                <tr>
+                                    <th style="width: 1%">Mã</th>
+                                    <th style="width: 20%">Tên túi xách</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Giá</th>
+                                    <th>Mã loại</th>
+                                    <th style="width: 20%">Tương tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="{{item.maTuiXach}}" *ngFor="let item of list">
+                                    <td>{{item.maTuiXach}}
+                                    </td>
+                                    <td>
+                                        <a>{{item.tenTuiXach}}</a>
+                                    </td>
+                                    <td>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <img src="assets/backend/images/img/{{item.hinhAnh}}" class="avatar" alt="Avatar">
+                                            </li>
+
+                                        </ul>
+                                    </td>
+                                    <td class="project_progress">
+
+                                        <h3>{{item.gia|number}} vnđ</h3>
+                                    </td>
+                                    <td>
+                                        <h3>{{item.maLoaiTuiXach}}</h3>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/admin/Detail',item.maTuiXach]" class="btn btn-primary btn-xs"><i class="fa fa-folder" aria-hidden="true"></i> View </a>
+                                        <a [routerLink]="['/admin/UpdateProd',item.maTuiXach]" [routerLinkActive] class="btn btn-info btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </a>
+                                        <button (click)="onDelete(item.maTuiXach)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+                                          </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <!-- end project list -->
+                        <div class="pagination ">
+                            <span (click)="previous() " class=" ">«</span>
+                            <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
+                            <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPage()}} " (change)="change(select.value) ">
+                            <option value="{{page}} " *ngFor="let page of staticRecordcount() ">{{page}}</option>
+                          </select>
+                            <span class=" " (click)="next() ">»</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

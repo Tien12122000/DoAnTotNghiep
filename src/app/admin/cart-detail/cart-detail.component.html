@@ -1,0 +1,94 @@
+<div class="right_col" role="main" style="min-height: 468px;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Quản lý <small>Danh sách sản phẩm</small></h3>
+            </div>
+            <form method="GET" action="http://localhost/blog/public/Search">
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                        <div class="input-group">
+
+                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                              <input type="submit" value="Go!" class="btn btn-secondary">
+                          </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Danh sách sản phẩm</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="http://localhost/blog/public/insertTui" style="color: black" role="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- start project list -->
+                        <table class="table table-striped projects">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%">
+                                        <h4>STT</h4>
+                                    </th>
+                                    <th style="width: 20%">
+                                        <h4>Mã giỏ hàng</h4>
+                                    </th>
+                                    <th style="width: 17%">
+                                        <h4>Mã túi xách</h4>
+                                    </th>
+                                    <th style="width: 17%">
+                                        <h4>Số lượng</h4>
+                                    </th>
+                                    <th style="width: 20%">
+                                        <h4>Đơn giá</h4>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="1">
+                                    <td>1
+                                    </td>
+                                    <td>
+                                        <h3>1</h3>
+                                    </td>
+                                    <td>
+                                        <h3>1</h3>
+                                    </td>
+                                    <td>
+                                        <h3>4</h3>
+                                    </td>
+                                    <td>
+                                        <h3>120,000 Đ</h3>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost/blog/public/chitietsanpham.prod/1" class="btn btn-primary btn-xs"><i class="fa fa-folder" aria-hidden="true"></i> View detail</a>
+
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- end project list -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,13 +1,135 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Admin</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- login -->
+    <link rel="stylesheet" href="assets/backend/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="assets/backend/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/backend/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="assets/backend/css/style.css">
+
+    <link rel="stylesheet" href="assets/backend/build/css/custom.min.css">
+    <style>
+        .pagination span {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: rgb(209, 136, 53);
+            transition: background-color .3s;
+        }
+        /* thiết lập style cho class active */
+        
+        .pagination span.active {
+            background-color: dodgerblue;
+            color: white;
+        }
+        /* thêm màu nền khi người dùng hover vào class không active */
+        
+        .pagination span:hover:not(.active) {
+            background-color: rgb(252, 172, 0);
+        }
+    </style>
+    <style>
+        #Pdf {
+            font-family: DejaVu Sans !important;
+        }
+        
+        #Head {
+            font-family: 'Oswald', sans-serif !important;
+        }
+    </style>
+    <!-- Script -->
+    <!-- <script src=" https://cdn.ckeditor.com/4.16.0/full-all/ckeditor.js"></script> -->
+    <script src=" https://cdn.ckeditor.com/4.16.0/full-all/ckeditor.js"></script>
+    <script src="assets/backend/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/backend/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="assets/backend/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="assets/backend/vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="assets/backend/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="assets/backend/vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="assets/backend/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="assets/backend/vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="assets/backend/vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="assets/backend/vendors/Flot/jquery.flot.js"></script>
+    <script src="assets/backend/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="assets/backend/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="assets/backend/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="assets/backend/vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="assets/backend/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="assets/backend/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="assets/backend/vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="assets/backend/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="assets/backend/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="assets/backend/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="assets/backend/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="assets/backend/vendors/moment/min/moment.min.js"></script>
+    <script src="assets/backend/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="assets/backend/build/js/custom.min.js"></script>
+
+    <!-- datatable -->
+    <script src="https://kit.fontawesome.com/8c3b47a7b7.js" crossorigin="anonymous"></script>
+
+    <script src="assets/backend/build/module_table.js"></script>
+
+
+    <!-- login -->
+
+    <link rel="stylesheet" href="assets/backend/vendors/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/backend/vendors/nprogress/nprogress.css">
+
+    <link rel="stylesheet" href="assets/backend/vendors/iCheck/skins/flat/green.css">
+
+
+    <link rel="stylesheet" href="assets/backend/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">
+
+    <link rel="stylesheet" href="assets/backend/vendors/jqvmap/dist/jqvmap.min.css">
+
+    <link rel="stylesheet" href="assets/backend/vendors/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- Login script -->
+    <script src="assets/backend/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/backend/js/popper.min.js"></script>
+    <script src="assets/backend/js/bootstrap.min.js"></script>
+    <script src="assets/backend/js/main.js"></script>
+    <!-- Login script -->
+
+
+
 </head>
-<body>
-  <app-root></app-root>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <app-root></app-root>
+        </div>
+    </div>
+
 </body>
+
 </html>

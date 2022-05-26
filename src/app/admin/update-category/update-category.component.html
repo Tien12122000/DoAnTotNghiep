@@ -1,0 +1,83 @@
+<app-header></app-header>
+<div class="right_col" role="main" style="min-height: 468px;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Cập nhật thông tin loại sản phẩm</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Nhập thông tin loại túi xách</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Settings 1</a>
+                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                </div>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="alert-success alert" *ngIf="trueFalse then Success"></div>
+                        <ng-template #Success>
+                            <div class="alert-success alert">{{Message}}</div>
+                        </ng-template>
+
+                        <br>
+                        <form class="form-horizontal form-label-left" [formGroup]="formGroup" (ngSubmit)="updateBagType(formGroup, editor)">
+                            <input type="hidden" name="_token" value="Yr0sMwa0p0eZkevxbKi5AvEf1rARSSlalQjFGNV8">
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Tên Loại sản phẩm</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input required formControlName="TenLoaiTui" type="text" value="" class="form-control" placeholder="Tên loại sản phẩm">
+                                    <!-- <div class="alert-danger alert" *ngIf="formGroup.controls['TenLoaiTui'].errors?.['required'] && formGroup.controls['TenLoaiTui'].touched">
+                                        Tên loại túi không được để trống
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="control-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">&nbsp;&nbsp;&nbsp;Mô tả loại sản phẩm</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <textarea id="tags_1" type="textarea" class="tags form-control" placeholder="Mô tả về loại sản phẩm" data-tagsinput-Motaloai="true" style="visibility: hidden; display: none;">
+                                </textarea>
+                                    <ckeditor #editor formGroupName="Motaloai" editorUrl="https://your-website.example/ckeditor/ckeditor.js" data=""></ckeditor>
+                                    <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-9 col-sm-9  offset-md-3">
+                                    <button type="button" class="btn btn-primary">Cancel</button>
+                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                    <button class="btn btn-success">Submit</button>
+                                    <!-- <div innerHTML="{{result}}"></div> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

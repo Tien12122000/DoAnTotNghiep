@@ -1,0 +1,116 @@
+<app-header></app-header>
+<div class="right_col" role="main" style="min-height: 1048px;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Quản lý <small>Danh sách đơn hàng</small></h3>
+            </div>
+            <form method="GET" action="http://localhost/blog/public/Search-Don-Hang">
+                <input type="hidden" name="_token" value="NJ2DIsNpR8sjMF6al84K3pWYGPI3Bwlvu70EzVmw">
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                        <div class="input-group">
+
+                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Search for..." value="">
+                            <span class="input-group-btn">
+                              <input type="submit" value="Go!" class="btn btn-secondary">
+                          </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Danh sách đơn hàng</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+                            </li>
+
+                            <li><a class="close-link"><i class="fa fa-close" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- start project list -->
+                        <table class="table table-striped projects">
+                            <thead>
+                                <tr>
+                                    <th style="width: 1%">Mã</th>
+                                    <th style="width: 13%">Tên khách hàng</th>
+                                    <th style="width: 10%">Ngày đặt hàng</th>
+                                    <th style="width: 17%">Địa chỉ</th>
+                                    <th style="width: 10%">Số điện thoại</th>
+                                    <th style="width: 15%">Trạng thái</th>
+                                    <th style="width: 10%">Tổng tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="{{item.maDonHang}}" *ngFor="let item of listBill">
+                                    <td>{{item.maDonHang}}
+                                    </td>
+                                    <td>
+                                        <a>{{item.tenKhachHang}}</a>
+                                    </td>
+                                    <td>
+                                        <a>{{item.ngayDatHang|date}}</a>
+                                    </td>
+                                    <td>
+                                        <a>{{item.diaChiGiaoHang}}</a>
+                                    </td>
+                                    <td>
+                                        <h6>{{item.soDienThoai}}</h6>
+                                    </td>
+                                    <td>
+                                        <h6>
+                                            <select #select name="" id="">
+                                                      <option value="{{item.trangThaiDonHang}}">
+                                                        {{item.trangThaiDonHang}}</option>
+                                                      <option value="Chưa hoàn thành">Chưa hoàn thành</option>
+                                                      <option value="Tiếp nhận">Tiếp nhận</option>
+                                                      <option value="Đóng gói">Đóng gói</option>
+                                                      <option value="Đang giao">Đang giao</option>
+                                                      <option value="Đã giao">Đã giao</option>
+                                                  </select>
+                                        </h6>
+                                    </td>
+                                    <td>
+                                        <h4>{{item.tongTien|number}} Đ</h4>
+                                    </td>
+                                    <td>
+                                        <button href="#" (click)="onUpdate(item.maDonHang,select.value)" class="btn btn-primary btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Đổi
+                                                  trạng
+                                                  thái
+                                              </button>
+                                        <a [routerLink]="['/admin/Bill-Detail',item.maDonHang]" class="btn btn-info btn-xs"><i class="fa fa-folder" aria-hidden="true"></i> Xem Chi
+                                                  tiết </a>
+                                        <a (click)="pdfExport(item.maDonHang)" class="btn btn-danger btn-xs"><i class="fas fa-file-download" aria-hidden="true"></i> Lấy hóa đơn
+                                              </a>
+                                        <button (click)="onDelete(item.maDonHang)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o" aria-hidden="true"></i> Hủy đơn
+                                              </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <!-- end project list -->
+                        <div class="pagination ">
+                            <span (click)="previous() " class=" ">«</span>
+                            <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
+                            <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPageNumber}} " (change)="change(select.value) ">
+                          <option value="{{page}} " *ngFor="let page of listPage ">{{page}}</option>
+                        </select>
+                            <span class=" " (click)="next() ">»</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

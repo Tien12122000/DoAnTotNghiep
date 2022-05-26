@@ -1,0 +1,95 @@
+<app-header></app-header>
+<div class="right_col" role="main" style="min-height: 593px;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Projects <small>Listing design</small></h3>
+            </div>
+            <form method="GET" action="http://localhost/blog/public/searchCate">
+                <input type="hidden" name="_token" value="jkJW0Iqjq6mIBjrU0kODekmzi6k2yWqpnz1ULpHi">
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                        <div class="input-group">
+
+                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Search for..." value="">
+                            <span class="input-group-btn">
+                    <input type="submit" value="Go!" class="btn btn-secondary">
+                  </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Danh sách loại sản phẩm</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a [routerLink]="['/admin/AddCategory']" style="color: black" role="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-striped projects">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%">Mã loại</th>
+                                    <th style="width: 20%">Tên loại túi xách</th>
+                                    <th>Mô tả</th>
+                                    <th style="width: 20%">Tương tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="{{item.maLoaiTuiXach}}" *ngFor="let item of getListCate()">
+                                    <td>{{item.maLoaiTuiXach}}</td>
+                                    <td>
+                                        <h3>{{item.tenLoai}}</h3>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <p innerHtml="{{item.moTa}}"></p>
+                                        </h4>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost/blog/public/Danh-sach-Tui-sach/1" class="btn btn-primary btn-xs"><i class="fa fa-folder" aria-hidden="true"></i> View </a>
+                                        <a [routerLink]="['/admin/UpdateCategory',item.maLoaiTuiXach]" class="btn btn-info btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </a>
+                                        <!-- <a class="btn btn-icon btn-hover btn-sm mx-2" nzPopconfirmPlacement="top" nz-popconfirm nzPopconfirmTitle="Bạn có chắc chắn muốn xóa không ?" [nzOkText]="'Yes'" [nzCancelText]="'No'" (nzOnConfirm)="onDelete(item.maLoaiTuiXach)"> -->
+                                        <button (click)="onDelete(item.maLoaiTuiXach)" class="btn btn-danger btn-xs "><i class="fa fa-trash-o " aria-hidden="true "></i> Delete </button>
+                                        <!-- </a> -->
+                                        <!-- <a class="btn btn-icon btn-hover btn-sm mx-2" nzPopconfirmPlacement="top" nz-popconfirm nzPopconfirmTitle="Bạn có chắc chắn muốn xóa không ?" [nzOkText]="'Yes'" [nzCancelText]="'No'" (nzOnConfirm)="onDelete(item.maLoaiTuiXach)">
+                                          <button class="btn btn-danger btn-xs "><i class="fa fa-trash-o "></i> Delete </button>
+                                      </a> -->
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <!-- end project list -->
+                        <div class="pagination ">
+                            <span (click)="previous() " class=" ">«</span>
+                            <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
+                            <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPage()}} " (change)="change(select.value) ">
+                            <option value="{{page}} " *ngFor="let page of staticRecordcount() ">{{page}}</option>
+                          </select>
+                            <span class=" " (click)="next() ">»</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

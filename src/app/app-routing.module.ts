@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './admin/login/login.component';
+import { RoutingAuthenticationService } from './core/routing-authentication.service';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path:'admin',loadChildren:()=>import("./admin/admin-module/admin-module.module").then(m=>m.AdminModuleModule), canActivate:[RoutingAuthenticationService]},
+  // {path:'admin',loadChildren:()=>import("./admin/admin-module/admin-module.module").then(m=>m.AdminModuleModule)},
+  {path:'Login',component: LoginComponent},
+  {path:'', component:LoginComponent, pathMatch:'full'},
+  // {path:'**', component:LoginComponent, pathMatch:'full'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
