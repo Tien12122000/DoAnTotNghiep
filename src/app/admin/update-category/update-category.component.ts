@@ -23,6 +23,7 @@ export class UpdateCategoryComponent extends BaseComponent implements OnInit, Af
   }
   // public Editor = ClassicEditor;
   result="";
+  LoaiSp:any;
   ngOnInit(): void {
     this.formGroup= new FormGroup({
       TenLoaiTui:new FormControl('',Validators.required),
@@ -31,6 +32,16 @@ export class UpdateCategoryComponent extends BaseComponent implements OnInit, Af
     this.activeRoute.paramMap.subscribe(params => {
       console.log(params);
       this.id =params.get("id");
+    });
+    combineLatest([
+      this._api.get('/api/LoaiTuiXaches/danhsach'),
+      this._api.get('/api/LoaiTuiXaches/GetLoaiTuiByID/'+this.id)
+    ]).subscribe(res=>{
+        this.LoaiSp=res[1];
+        this.formGroup.controls['TenLoaiTui'].setValue(this.LoaiSp['tenLoai']);
+        // this.form.controls['Giasanpham'].setValue(this.LoaiSp['gia']);
+        // this.form.controls['TenLoai'].setValue(this.LoaiSp['maLoaiTuiXach']);
+        console.log(this.LoaiSp);
     });
   }
 

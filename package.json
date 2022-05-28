@@ -24,6 +24,7 @@
     "alertifyjs": "^1.13.1",
     "angularx-social-login": "^4.0.1",
     "ckeditor4-angular": "^2.3.0",
+    "jquery": "^3.6.0",
     "ng-zorro-antd": "^12.1.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

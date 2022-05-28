@@ -36,9 +36,11 @@ export class UpdateProdComponent extends BaseComponent implements OnInit, AfterV
       this._api.get('/api/TuiXach/Get-Tui-by-ID/'+this.id)
     ]).subscribe(res=>{
       this.listcate=res[0];
-      this.tui=res[1];
-      console.log(this.listcate);
-      console.log(this.tui);
+        this.tui=res[1];
+        this.form.controls['Tensanpham'].setValue(this.tui['tenTuiXach']);
+        this.form.controls['Giasanpham'].setValue(this.tui['gia']);
+        this.form.controls['TenLoai'].setValue(this.tui['maLoaiTuiXach']);
+        console.log(this.tui);
     });
 
   }
