@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Quản lý <small>Danh sách đơn hàng</small></h3>
+                <h4 style = "margin-top: 15px;">Quản lý đơn hàng</h4>
             </div>
             <form method="GET" action="http://localhost/blog/public/Search-Don-Hang">
                 <input type="hidden" name="_token" value="NJ2DIsNpR8sjMF6al84K3pWYGPI3Bwlvu70EzVmw">
@@ -11,9 +11,9 @@
                     <div class="col-md-5 col-sm-5   form-group pull-right top_search">
                         <div class="input-group">
 
-                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Search for..." value="">
+                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Từ khóa..." value="">
                             <span class="input-group-btn">
-                              <input type="submit" value="Go!" class="btn btn-secondary">
+                              <input type="submit" value="Tìm kiếm" class="btn btn-secondary">
                           </span>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                                         <a>{{item.diaChiGiaoHang}}</a>
                                     </td>
                                     <td>
-                                        <h6>{{item.soDienThoai}}</h6>
+                                        <a>{{item.soDienThoai}}</a>
                                     </td>
                                     <td>
                                         <h6>
