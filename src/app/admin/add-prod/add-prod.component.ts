@@ -63,7 +63,11 @@ export class AddProdComponent extends BaseComponent implements OnInit {
       }, error=>{
         alert("Thao tác thất bại");
       });
-      console.log(tuiXach);
+      // console.log(tuiXach);
+      setTimeout(() => {
+
+        window.location.pathname="/admin/Datable"
+        }, 2000);
     },err=>{
       alert("Thao tác thất bại");
       // window.location.reload

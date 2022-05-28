@@ -15,13 +15,13 @@ export class DashboardComponent extends BaseComponent implements OnInit {
    }
   billNumber:any;
   ngOnInit(): void {
-    combineLatest([
-      this._api.get("/api/DonHang/Get-Donhang-Number"),
-    ]).subscribe(res=>{
-      this.billNumber=res[0];
-    }, err=>{
-      throwError;
-    })
+    // combineLatest([
+    //   this._api.get("/api/DonHangControllerr/Get-Donhang-Number")
+    // ]).subscribe(res=>{
+    //   this.billNumber=res[0];
+    // }, err=>{
+    //   throwError;
+    // })
   }
   ngAfterViewInit(): void {
     // this.loadscript();
