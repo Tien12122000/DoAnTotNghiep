@@ -36,8 +36,6 @@
                             <li class="dropdown">
                                 <a [routerLink]="['/admin/AddCategory']" style="color: black" role="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
                             </li>
-                            <li><a class="close-link"><i class="fa fa-close" aria-hidden="true"></i></a>
-                            </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -48,14 +46,14 @@
                                     <th style="width: 10%">Mã loại</th>
                                     <th style="width: 20%">Tên loại túi xách</th>
                                     <th>Mô tả</th>
-                                    <th style="width: 20%">Tương tác</th>
+                                    <th style="width: 20%">Tác vụ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr id="{{item.maLoaiTuiXach}}" *ngFor="let item of getListCate()">
                                     <td>{{item.maLoaiTuiXach}}</td>
                                     <td>
-                                        <h3>{{item.tenLoai}}</h3>
+                                        <a>{{item.tenLoai}}</a>
                                     </td>
                                     <td>
                                         <h4>
@@ -63,10 +61,10 @@
                                         </h4>
                                     </td>
                                     <td>
-                                        <a href="http://localhost/blog/public/Danh-sach-Tui-sach/1" class="btn btn-primary btn-xs"><i class="fa fa-folder" aria-hidden="true"></i> View </a>
-                                        <a [routerLink]="['/admin/UpdateCategory',item.maLoaiTuiXach]" class="btn btn-info btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </a>
+                                        <a href="http://localhost/blog/public/Danh-sach-Tui-sach/1" class="btn btn-primary btn-xs" style ="width: 63px;height: 30px ;font-size: 10px"><i class="fa fa-folder" aria-hidden="true"></i> View </a>
+                                        <a [routerLink]="['/admin/UpdateCategory',item.maLoaiTuiXach]" class="btn btn-info btn-xs" style ="width: 63px;height: 30px ;font-size: 10px"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </a>
                                         <!-- <a class="btn btn-icon btn-hover btn-sm mx-2" nzPopconfirmPlacement="top" nz-popconfirm nzPopconfirmTitle="Bạn có chắc chắn muốn xóa không ?" [nzOkText]="'Yes'" [nzCancelText]="'No'" (nzOnConfirm)="onDelete(item.maLoaiTuiXach)"> -->
-                                        <button (click)="onDelete(item.maLoaiTuiXach)" class="btn btn-danger btn-xs "><i class="fa fa-trash-o " aria-hidden="true "></i> Delete </button>
+                                        <button (click)="onDelete(item.maLoaiTuiXach)" class="btn btn-danger btn-xs " style ="width: 67px;height: 30px ;font-size: 10px"><i class="fa fa-trash-o " aria-hidden="true "></i> Delete </button>
                                         <!-- </a> -->
                                         <!-- <a class="btn btn-icon btn-hover btn-sm mx-2" nzPopconfirmPlacement="top" nz-popconfirm nzPopconfirmTitle="Bạn có chắc chắn muốn xóa không ?" [nzOkText]="'Yes'" [nzCancelText]="'No'" (nzOnConfirm)="onDelete(item.maLoaiTuiXach)">
                                           <button class="btn btn-danger btn-xs "><i class="fa fa-trash-o "></i> Delete </button>
