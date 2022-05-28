@@ -42,7 +42,7 @@ export class AddCategoryComponent extends BaseComponent implements OnInit {
       this.Message="Thêm loại túi thành công";
       setTimeout(() => {
 
-      window.location.pathname="/admin/Datable"
+      window.location.pathname="/admin/Category"
       }, 2000);
       // alertifyjs("Thêm loại túi thành công");
     },
