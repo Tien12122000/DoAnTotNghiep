@@ -39,7 +39,7 @@ export class AddProdComponent extends BaseComponent implements OnInit {
     console.log(form.controls.img1.value);
     console.log(form);
 
-    alert(this.file);
+    // alert(this.file);
     let file= new FormData();
 
     file.append('file', this.file, this.file.name);
@@ -70,7 +70,7 @@ export class AddProdComponent extends BaseComponent implements OnInit {
     });
   }
   change(event){
-    alert(event.target.files[0]);
+    // alert(event.target.files[0]);
     this.file=event.target.files[0];
     console.log(this.file)
   }
