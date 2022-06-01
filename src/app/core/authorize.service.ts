@@ -15,14 +15,22 @@ export class AuthorizeService implements CanActivate{
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     var user=JSON.parse(localStorage.getItem('accessToken'));
     // console.log(user);
+     if(user){
       combineLatest([
         this.http.post('https://localhost:44399/api/Role/CheckRole',user['id'])
       ]).subscribe(res=>{
         return true;
       },err=>{
-        alert("Thao tác thất bại");
+        // alert("Bạn ko có quyền truy cập");
         // window.location.reload
+        
+        return false;
       });
+     }
+     else{
+       alert("Đăng nhập trước khi tiếp tục");
+      this.router.navigate(['/Login']);
       return false;
-    }
+     }
+  }
 }
