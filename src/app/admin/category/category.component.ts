@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import alertifyjs from 'alertifyjs';
+import { Router } from '@angular/router';
 // import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -11,7 +12,7 @@ import alertifyjs from 'alertifyjs';
 })
 export class CategoryComponent extends BaseComponent implements OnInit {
 
-  constructor(private inject: Injector) {
+  constructor(private inject: Injector, private router:Router) {
     super(inject);
   }
   static listCate=null;
@@ -109,6 +110,25 @@ export class CategoryComponent extends BaseComponent implements OnInit {
     })
   }
   onDelete(maLoaiTuiXach){
+    var user=JSON.parse(localStorage.getItem('accessToken'));
+    if(user){
+      var bool;
+       if(user.role=='admin'){
+         bool=true;
+       }
+       if(bool!=true){
+         setTimeout(()=>{
+          this.router.navigate(['/Unauthorize']);
+         },1000);
+         return false;
+       }
+     return bool;
+    }
+    else{
+       alert("Đăng nhập trước khi tiếp tục");
+       this.router.navigate(['/Login']);
+       return false;
+    }
     combineLatest([
       this._api.post("/api/LoaiTuiXaches/delLoaiTuixach",maLoaiTuiXach)
     ]).subscribe(res=>{

@@ -1,4 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 
@@ -9,7 +10,7 @@ import { BaseComponent } from 'src/app/core/base/base.component';
 })
 export class BillComponent extends BaseComponent implements OnInit {
 
-  constructor(private inject: Injector) {
+  constructor(private inject: Injector, private router:Router) {
     super(inject);
   }
   listBill:any;
@@ -100,6 +101,25 @@ export class BillComponent extends BaseComponent implements OnInit {
     return this.currentPageNumber;
   }
   onDelete(id){
+    var user=JSON.parse(localStorage.getItem('accessToken'));
+    if(user){
+      var bool;
+       if(user.role=='admin'){
+         bool=true;
+       }
+       if(bool!=true){
+         setTimeout(()=>{
+          this.router.navigate(['/Unauthorize']);
+         },1000);
+         return false;
+       }
+     return bool;
+    }
+    else{
+       alert("Đăng nhập trước khi tiếp tục");
+       this.router.navigate(['/Login']);
+       return false;
+    }
     combineLatest([
       this._api.get("/api/DonHangControllerr/Del-Don-Hang/"+ id)
     ]).subscribe(res=>{
@@ -131,6 +151,25 @@ export class BillComponent extends BaseComponent implements OnInit {
   // id:any;
   // status:any;
   onUpdate(id,status){
+    var user=JSON.parse(localStorage.getItem('accessToken'));
+    if(user){
+      var bool;
+       if(user.role=='admin'){
+         bool=true;
+       }
+       if(bool!=true){
+         setTimeout(()=>{
+          this.router.navigate(['/Unauthorize']);
+         },1000);
+         return false;
+       }
+     return bool;
+    }
+    else{
+       alert("Đăng nhập trước khi tiếp tục");
+       this.router.navigate(['/Login']);
+       return false;
+    }
     combineLatest([
       this._api.get("/api/DonHangControllerr/cap-nhat-don-hang/"+id+"/"+status)
     ]).subscribe(res=>{
@@ -142,6 +181,25 @@ export class BillComponent extends BaseComponent implements OnInit {
     alert(status);
   }
   pdfExport(id){
+    var user=JSON.parse(localStorage.getItem('accessToken'));
+    if(user){
+      var bool;
+       if(user.role=='admin'){
+         bool=true;
+       }
+       if(bool!=true){
+         setTimeout(()=>{
+          this.router.navigate(['/Unauthorize']);
+         },1000);
+         return false;
+       }
+     return bool;
+    }
+    else{
+       alert("Đăng nhập trước khi tiếp tục");
+       this.router.navigate(['/Login']);
+       return false;
+    }
     combineLatest([
       this._api.get("/api/BillToPDF/PDF-Export/"+id)
     ]).subscribe(res=>{

@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { AuthorizeService } from 'src/app/core/authorize.service';
 
 @NgModule({
   declarations: [
@@ -54,13 +55,14 @@ import { FooterComponent } from '../footer/footer.component';
       {path:"Cart",component:CartComponent},
       {path:"Cart-Detail",component:CartDetailComponent},
       {path:"Detail/:id",component:DetailComponent},
-      {path:"AddProd",component:AddProdComponent},
-      {path:"UpdateProd/:id",component:UpdateProdComponent},
-      {path:"UpdateCategory/:id",component:UpdateCategoryComponent},
-      {path:"AddCategory",component:AddCategoryComponent},
+      {path:"AddProd",component:AddProdComponent,canActivate:[AuthorizeService]},
+      {path:"UpdateProd/:id",component:UpdateProdComponent,canActivate:[AuthorizeService]},
+      {path:"UpdateCategory/:id",component:UpdateCategoryComponent,canActivate:[AuthorizeService]},
+      {path:"AddCategory",component:AddCategoryComponent,canActivate:[AuthorizeService]},
       {path:"Dashboard", component: DashboardComponent},
       {path:"Bill-Detail/:id", component: BillDetailComponent},
-      {path:"BillToPDF/:id", component: BillToPDFComponent}
+      {path:"BillToPDF/:id", component: BillToPDFComponent,canActivate:[AuthorizeService]},
+      // {path:"DeleteCategory", component: CategoryComponent,canActivate:[AuthorizeService]}
 
     ])
   ],

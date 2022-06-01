@@ -9,22 +9,21 @@ import { combineLatest, Observable } from 'rxjs';
 export class AuthorizeService implements CanActivate{
 
   http:any;
-  constructor(http: HttpClient, private router: Router) { 
+  constructor(http: HttpClient, private router: Router) {
     this.http=http;
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     var user=JSON.parse(localStorage.getItem('accessToken'));
-    // console.log(user);
      if(user){
-      combineLatest([
-        this.http.post('https://localhost:44399/api/Role/CheckRole',user['id'])
-      ]).subscribe(res=>{
-        return true;
-      },err=>{
-        
-        this.router.navigate(['/Unauthorize']);
-        return false;
-      });
+       var bool;
+        if(user.role=='admin'){
+          bool=true;
+        }
+        if(bool!=true){
+          this.router.navigate(['/Unauthorize']);
+          return false;
+        }
+      return bool;
      }
      else{
         alert("Đăng nhập trước khi tiếp tục");

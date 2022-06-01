@@ -36,7 +36,7 @@ public signInWithGoogle(): void {
   var GoogleAuthRes={};
   this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((res)=>{
 
-    console.log(res);
+    // console.log(res);
 
     var result;
     this.accountService.loginGoogle(res.authToken).subscribe(respo=>{

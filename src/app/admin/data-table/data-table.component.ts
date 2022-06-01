@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { combineLatest, throwError } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 
@@ -10,7 +11,7 @@ import { BaseComponent } from 'src/app/core/base/base.component';
 export class DataTableComponent extends BaseComponent implements OnInit, AfterViewInit {
 
 
-  constructor(private inject:Injector) {
+  constructor(private inject:Injector, private router:Router) {
     super(inject);
   }
   list:any;
@@ -95,6 +96,25 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
     return this.currentPageNumber;
   }
   onDelete(maTuiXach){
+    var user=JSON.parse(localStorage.getItem('accessToken'));
+    if(user){
+      var bool;
+       if(user.role=='admin'){
+         bool=true;
+       }
+       if(bool!=true){
+         setTimeout(()=>{
+          this.router.navigate(['/Unauthorize']);
+         },1000);
+         return false;
+       }
+     return bool;
+    }
+    else{
+       alert("Đăng nhập trước khi tiếp tục");
+       this.router.navigate(['/Login']);
+       return false;
+    }
     combineLatest([
       this._api.post("/api/TuiXach/Xoa-San-Pham-Tui-Xach",maTuiXach)
     ]).subscribe(res=>{
