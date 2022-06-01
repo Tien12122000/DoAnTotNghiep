@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { LoginComponent } from './admin/login/login.component';
 import { environment } from 'src/environments/environment';
+import { UnauthorizeComponent } from './admin/unauthorize/unauthorize.component';
 // import { BillToPDFComponent } from './admin/bill-to-pdf/bill-to-pdf.component';
 
 
@@ -18,7 +19,8 @@ const CLIENT_ID = environment.client_Id;
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    UnauthorizeComponent
     // FooterComponent,
     // BillToPDFComponent,
     // BaseComponent
