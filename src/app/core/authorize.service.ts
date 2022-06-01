@@ -21,16 +21,15 @@ export class AuthorizeService implements CanActivate{
       ]).subscribe(res=>{
         return true;
       },err=>{
-        // alert("Bạn ko có quyền truy cập");
-        // window.location.reload
         
+        this.router.navigate(['/Unauthorize']);
         return false;
       });
      }
      else{
-       alert("Đăng nhập trước khi tiếp tục");
-      this.router.navigate(['/Login']);
-      return false;
+        alert("Đăng nhập trước khi tiếp tục");
+        this.router.navigate(['/Login']);
+        return false;
      }
   }
 }
