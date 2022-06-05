@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { HeaderComponent } from '../admin/header/header.component';
 import { AccountServiceService } from './account-service.service';
 
 @Injectable({
@@ -15,6 +16,8 @@ export class RoutingAuthenticationService implements CanActivate {
     // console.log(user);
     if(user){
       // this.router.navigate(['/admin/Dashboard']);
+      HeaderComponent.info=user.user;
+      console.log(HeaderComponent.info);
       return true;
     }
     this.router.navigate(['/Login']);

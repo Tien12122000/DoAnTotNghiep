@@ -32,15 +32,16 @@ export class LoginComponent {
       // moment().add(1234,'second');
   }
   // google service
+  static result:any;
 public signInWithGoogle(): void {
   var GoogleAuthRes={};
   this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((res)=>{
 
     // console.log(res);
 
-    var result;
+
     this.accountService.loginGoogle(res.authToken).subscribe(respo=>{
-      result=respo;
+      LoginComponent.result=respo;
 
     },
     err=>{
@@ -54,6 +55,9 @@ public signInWithGoogle(): void {
     //   alert("Tên tài khoản hoặc mật khẩu không đúng");
     // }
   });
+}
+public static GetUserInfo(){
+  return LoginComponent.result;
 }
 public signOut(): void {
   this.socialAuthService.signOut();
