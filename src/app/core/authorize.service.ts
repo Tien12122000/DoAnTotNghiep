@@ -20,7 +20,9 @@ export class AuthorizeService implements CanActivate{
           bool=true;
         }
         if(bool!=true){
-          this.router.navigate(['/Unauthorize']);
+          setTimeout(() => {
+            this.router.navigate(['/Unauthorize']);
+          }, 2000);
           return false;
         }
       return bool;
