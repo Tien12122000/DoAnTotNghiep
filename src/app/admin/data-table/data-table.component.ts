@@ -136,4 +136,7 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
       return res.maLoaiTuiXach!=id;
     })
   }
+  ShowNumrecialOrder(stt){
+    return ++stt;
+  }
 }

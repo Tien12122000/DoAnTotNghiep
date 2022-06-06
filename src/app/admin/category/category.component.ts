@@ -135,4 +135,7 @@ export class CategoryComponent extends BaseComponent implements OnInit {
       console.log(maLoaiTuiXach);
     })
   }
+  ShowNumrecialOrder(stt){
+    return ++stt;
+  }
 }
