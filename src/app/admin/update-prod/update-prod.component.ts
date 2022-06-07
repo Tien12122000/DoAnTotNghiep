@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 
@@ -12,7 +12,7 @@ import { BaseComponent } from 'src/app/core/base/base.component';
 })
 export class UpdateProdComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  constructor(private injector:Injector, private http: HttpClient, private router:ActivatedRoute) {
+  constructor(private injector:Injector, private http: HttpClient, private router:ActivatedRoute, private route:Router) {
     super(injector);
    }
   form:FormGroup;
@@ -77,6 +77,9 @@ export class UpdateProdComponent extends BaseComponent implements OnInit, AfterV
           this._api.post("/api/TuiXach/Sua-San-Pham-Tui-Xach",tuiXach)
         ]).subscribe(response=>{
           alert("Thành công");
+          setTimeout(() => {
+            window.location.pathname="/Admin/Datable"
+          }, 2000);
         }, error=>{
           alert("Thao tác thất bại");
         });
@@ -105,6 +108,9 @@ export class UpdateProdComponent extends BaseComponent implements OnInit, AfterV
           this._api.post("/api/TuiXach/Sua-San-Pham-Tui-Xach",tuiXach)
         ]).subscribe(response=>{
           alert("Thành công");
+          setTimeout(() => {
+            window.location.pathname="admin/Datable";
+          }, 2000);
         }, error=>{
           alert("Thao tác thất bại");
         });
@@ -115,5 +121,10 @@ export class UpdateProdComponent extends BaseComponent implements OnInit, AfterV
     alert(event.target.files[0]);
     this.file=event.target.files[0];
     console.log(this.file)
+  }
+  CancleBtn(){
+    setTimeout(() => {
+      window.location.pathname="admin/Datable";
+    }, 1000);
   }
 }

@@ -112,23 +112,18 @@ export class CategoryComponent extends BaseComponent implements OnInit {
   onDelete(maLoaiTuiXach){
     var user=JSON.parse(localStorage.getItem('accessToken'));
     if(user){
-      var bool;
+      var bool=false;
        if(user.role=='admin'){
          bool=true;
        }
        if(bool!=true){
          setTimeout(()=>{
           this.router.navigate(['/Unauthorize']);
+          bool=false;
          },1000);
-         return false;
        }
-     return bool;
     }
-    else{
-       alert("Đăng nhập trước khi tiếp tục");
-       this.router.navigate(['/Login']);
-       return false;
-    }
+    if(bool==true)
     combineLatest([
       this._api.post("/api/LoaiTuiXaches/delLoaiTuixach",maLoaiTuiXach)
     ]).subscribe(res=>{
@@ -139,5 +134,8 @@ export class CategoryComponent extends BaseComponent implements OnInit {
       alert("Thao tác thất bại");
       console.log(maLoaiTuiXach);
     })
+  }
+  ShowNumrecialOrder(stt){
+    return ++stt;
   }
 }

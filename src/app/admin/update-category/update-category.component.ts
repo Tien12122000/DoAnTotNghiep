@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, throwError } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import alertifyjs from 'alertifyjs';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-update-category',
@@ -77,6 +78,9 @@ export class UpdateCategoryComponent extends BaseComponent implements OnInit, Af
       console.log(res);
       this.trueFalse=true;
       this.Message="Cập nhật thành công";
+      setTimeout(() => {
+        window.location.pathname="admin/Category";
+      }, 2000);
         },
         (error)=>{
           this.Message="Thao tác thất bại";
@@ -85,5 +89,15 @@ export class UpdateCategoryComponent extends BaseComponent implements OnInit, Af
       },
       error=>{return error;}
     );
+  }
+  ResetBtn(){
+    this.formGroup.controls['TenLoaiTui'].setValue(this.LoaiSp['tenLoai']);
+    // this.formGroup.controls['Motaloai'].setValue(this.LoaiSp['moTa']);
+    // this.result['']setData(this.LoaiSp['moTa']);
+  }
+  CancleBtn(){
+    setTimeout(() => {
+      window.location.pathname="admin/Category";
+    }, 1000);
   }
 }

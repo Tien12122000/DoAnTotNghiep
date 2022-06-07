@@ -103,23 +103,18 @@ export class BillComponent extends BaseComponent implements OnInit {
   onDelete(id){
     var user=JSON.parse(localStorage.getItem('accessToken'));
     if(user){
-      var bool;
+      var bool=false;
        if(user.role=='admin'){
          bool=true;
        }
        if(bool!=true){
          setTimeout(()=>{
           this.router.navigate(['/Unauthorize']);
+          bool=false;
          },1000);
-         return false;
        }
-     return bool;
     }
-    else{
-       alert("Đăng nhập trước khi tiếp tục");
-       this.router.navigate(['/Login']);
-       return false;
-    }
+    if(bool==true)
     combineLatest([
       this._api.get("/api/DonHangControllerr/Del-Don-Hang/"+ id)
     ]).subscribe(res=>{
@@ -153,23 +148,18 @@ export class BillComponent extends BaseComponent implements OnInit {
   onUpdate(id,status){
     var user=JSON.parse(localStorage.getItem('accessToken'));
     if(user){
-      var bool;
+      var bool=false;
        if(user.role=='admin'){
          bool=true;
        }
        if(bool!=true){
          setTimeout(()=>{
           this.router.navigate(['/Unauthorize']);
+          bool=false;
          },1000);
-         return false;
        }
-     return bool;
     }
-    else{
-       alert("Đăng nhập trước khi tiếp tục");
-       this.router.navigate(['/Login']);
-       return false;
-    }
+    if(bool==true)
     combineLatest([
       this._api.get("/api/DonHangControllerr/cap-nhat-don-hang/"+id+"/"+status)
     ]).subscribe(res=>{
@@ -183,23 +173,18 @@ export class BillComponent extends BaseComponent implements OnInit {
   pdfExport(id){
     var user=JSON.parse(localStorage.getItem('accessToken'));
     if(user){
-      var bool;
+      var bool=false;
        if(user.role=='admin'){
          bool=true;
        }
        if(bool!=true){
          setTimeout(()=>{
           this.router.navigate(['/Unauthorize']);
+          bool=false;
          },1000);
-         return false;
        }
-     return bool;
     }
-    else{
-       alert("Đăng nhập trước khi tiếp tục");
-       this.router.navigate(['/Login']);
-       return false;
-    }
+    if(bool==true)
     combineLatest([
       this._api.get("/api/BillToPDF/PDF-Export/"+id)
     ]).subscribe(res=>{

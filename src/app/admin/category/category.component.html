@@ -43,15 +43,15 @@
                         <table class="table table-striped projects">
                             <thead>
                                 <tr>
-                                    <th style="width: 10%">Mã loại</th>
+                                    <th style="width: 10%">STT</th>
                                     <th style="width: 20%">Tên loại túi xách</th>
                                     <th>Mô tả</th>
                                     <th style="width: 20%">Tác vụ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="{{item.maLoaiTuiXach}}" *ngFor="let item of getListCate()">
-                                    <td>{{item.maLoaiTuiXach}}</td>
+                                <tr id="{{item.maLoaiTuiXach}}" *ngFor="let item of getListCate(); let r=index">
+                                    <td>{{ShowNumrecialOrder(r)}}</td>
                                     <td>
                                         <a>{{item.tenLoai}}</a>
                                     </td>

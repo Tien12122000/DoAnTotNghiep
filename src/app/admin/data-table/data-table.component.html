@@ -42,17 +42,18 @@
                         <table class="table table-striped projects">
                             <thead>
                                 <tr>
-                                    <th style="width: 1%">Mã</th>
+                                    <th style="width: 1%">STT</th>
                                     <th style="width: 20%">Tên túi xách</th>
                                     <th>Hình ảnh</th>
                                     <th>Giá</th>
-                                    <th>Tên loại</th>
+                                    <th>Mã sản phẩm</th>
                                     <th style="width: 20%">Tác vụ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="{{item.maTuiXach}}" *ngFor="let item of list">
-                                    <td>{{item.maTuiXach}}
+                                <tr id="{{item.maTuiXach}}" *ngFor="let item of list; let r= index">
+                                    <td>
+                                      {{ShowNumrecialOrder(r)}}
                                     </td>
                                     <td>
                                         <a>{{item.tenTuiXach}}</a>
@@ -69,8 +70,8 @@
 
                                         <a>{{item.gia|number}} vnđ</a>
                                     </td>
-                                    <td>
-                                        <a>{{item.maLoaiTuiXach}}</a>
+                                    <td style="align-items: center;">
+                                        <a>{{item.maTuiXach}}</a>
                                     </td>
                                     <td>
                                         <a [routerLink]="['/admin/Detail',item.maTuiXach]" class="btn btn-primary btn-xs" style ="width: 63px;height: 30px ;font-size: 10px"><i class="fa fa-folder" aria-hidden="true"></i> View </a>
