@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { combineLatest, throwError } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-data-table',
@@ -17,14 +19,17 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
   list:any;
   currentPageNumber=1;
   listPage;
+  formG:any;
   ngOnInit(): void {
+    this.formG= new FormGroup({
+      Seacrh:new FormControl('',Validators.maxLength(100))
+    });
     combineLatest([
       this._api.get("/api/TuiXach/Tui-page/1"),
       this._api.get("/api/TuiXach/Get-Row-total-tui-records"),
     ]).subscribe(res=>{
       this.list=res[0];
       this.listPage=res[1];
-      console.log(this.list);
     }, err=>{
       throwError;
     })
@@ -32,58 +37,91 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
   ngAfterViewInit(): void {
     this.loadscript();
   }
-  next(){
-    // debugger;
-      if((this.listPage != null && this.list != "") || this.listPage.length > 0){
-        if(this.currentPageNumber < this.listPage.length && this.currentPageNumber>=1){
-          this.currentPageNumber+=1;
-          // if(this.currentPageNumber >= this.list.length){
-          //   this.currentPageNumber = this.list.length;
-          // }
 
+  state=1;
+  next(){
+      if((this.state==2)){
+        if(this.currentPageNumber<this.listPage.length ){
+          this.currentPageNumber+=1;
         }
         combineLatest([
-          this._api.get('/api/TuiXach/Tui-page/'+ this.currentPageNumber)
-        ]).subscribe(res=>{
+          this._api.get('/api/TuiXach/Search-Tui-Paginate/'+ this.currentPageNumber +'/'+this.value),
+        ]).subscribe(res => {
           this.list = res[0];
-            console.log(this.listPage);
-            console.log(this.currentPageNumber);
-            setTimeout(() => {
-              // this.loadscript();
-            });
+          setTimeout(() => {
+            this.loadscript();
           });
+        }, err => { throw err; });
       }
-
+      else if(this.state == 1)
+      {
+        if(this.currentPageNumber<this.listPage.length){
+          this.currentPageNumber+=1;
+        }
+        combineLatest([
+          this._api.get('/api/TuiXach/Tui-page/'+ this.currentPageNumber),
+        ]).subscribe(res => {
+          this.list = res[0];
+          setTimeout(() => {
+            this.loadscript();
+          });
+        }, err => { throw err; });
+    }
   }
   previous(){
-    if((this.list != null)){
-      if(this.currentPageNumber <= this.listPage.length && this.currentPageNumber>1){
+    if((this.state==2)){
+      if(this.currentPageNumber>=this.listPage.length && this.currentPageNumber>1){
         this.currentPageNumber-=1;
-        if(this.currentPageNumber<1) this.currentPageNumber=1;
-
+      }
+      combineLatest([
+        this._api.get('/api/TuiXach/Search-Tui-Paginate/'+ this.currentPageNumber +'/'+this.value),
+      ]).subscribe(res => {
+        this.list = res[0];
+        setTimeout(() => {
+          this.loadscript();
+        });
+      }, err => { throw err; });
+    }
+    else if(this.state == 1)
+    {
+      if(this.currentPageNumber>=this.listPage.length && this.currentPageNumber>1){
+        this.currentPageNumber--;
+        this.currentPage();
       }
       combineLatest([
         this._api.get('/api/TuiXach/Tui-page/'+ this.currentPageNumber),
       ]).subscribe(res => {
         this.list = res[0];
-        console.log(this.list);
-        console.log(this.currentPageNumber);
         setTimeout(() => {
-          // this.loadscript();
+          this.loadscript();
         });
-      });
-    }
+      }, err => { throw err; });
+  }
   }
   change(value){
     this.currentPageNumber=Number(value);
-    combineLatest([
-      this._api.get('/api/TuiXach/Tui-page/'+ this.currentPageNumber),
-    ]).subscribe(res => {
-      this.list = res[0];
-      setTimeout(() => {
-        // this.loadscript();
-      });
-    });
+    this.currentPage();
+    if(this.state==2){
+
+        combineLatest([
+          this._api.get('/api/TuiXach/Search-Tui-Paginate/'+ this.currentPageNumber +'/'+this.value),
+        ]).subscribe(res => {
+          this.list = res[0];
+          setTimeout(() => {
+            this.loadscript();
+          });
+        }, err => { throw err; });
+    }
+    else if(this.state==1){
+      combineLatest([
+        this._api.get('/api/TuiXach/Tui-page/'+ this.currentPageNumber),
+      ]).subscribe(res => {
+        this.list = res[0];
+        setTimeout(() => {
+          this.loadscript();
+        });
+      }, err => { throw err; });
+    }
   }
   staticRecordcount(){
     return this.listPage;
@@ -117,18 +155,14 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
     },
     (error)=>{
       alert("Thao tác thất bại");
-      console.log(maTuiXach);
     })
   }
   getList(id){
     combineLatest([
-      // this._api.get("/api/TuiXach/Loai-Tui-page/1"),
       this._api.get("/api/TuiXach/Get-Row-total-tui-records"),
       this._api.get("/api/TuiXach/Tui-page/1")
     ]).subscribe(res=>{
-      // this.list=res[0];
       this.listPage=res[0];
-      console.log(this.list);
       this.list=res[1];
       this.currentPageNumber=1;
     });
@@ -138,5 +172,44 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
   }
   ShowNumrecialOrder(stt){
     return ++stt;
+  }
+
+
+  value:any;
+  search(getData){
+    this.value=getData.Seacrh;
+    console.log(this.value);
+    if(this.value)
+    {
+        this.state=2;
+        this.currentPageNumber=1;
+        combineLatest([
+        this._api.get('/api/TuiXach/Search-Tui-Paginate/1/'+this.value),
+        this._api.get('/api/TuiXach/Search-Record-count/'+this.value)
+        ]).subscribe(res => {
+        this.list = res[0];
+        this.listPage=res[1];
+        console.log(this.list);
+        setTimeout(() => {
+          this.loadscript();
+        });
+      }, err => { throw err; });
+      this.formG= new FormGroup({
+        Seacrh:new FormControl('',Validators.maxLength(100))
+      });
+    }
+    else{
+      this.state=1;
+      this.currentPageNumber=1;
+      combineLatest([
+        this._api.get("/api/TuiXach/Tui-page/1"),
+        this._api.get("/api/TuiXach/Get-Row-total-tui-records"),
+      ]).subscribe(res=>{
+        this.list=res[0];
+        this.listPage=res[1];
+      }, err=>{
+        throwError;
+      })
+    }
   }
 }

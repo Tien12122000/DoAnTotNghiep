@@ -1,8 +1,9 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { combineLatest, throwError } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
 import alertifyjs from 'alertifyjs';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -15,83 +16,212 @@ export class CategoryComponent extends BaseComponent implements OnInit {
   constructor(private inject: Injector, private router:Router) {
     super(inject);
   }
-  static listCate=null;
-  static currentPageNumber=1;
-  static pageList=null;
+  listCate:any;
+  currentPageNumber=1;
+  pageList:any;
+  formG:any;
+
+  state=1;
+  // listPage:any;
+  value:any;
   ngOnInit(): void {
+    this.formG= new FormGroup({
+      Seacrh:new FormControl('',Validators.maxLength(100))
+    });
     combineLatest([
       this._api.get("/api/LoaiTuiXaches/Loai-Tui-page/1"),
       this._api.get("/api/LoaiTuiXaches/Loai-Tui-page-count")
     ]).subscribe(res=>{
-      CategoryComponent.listCate=res[0];
-      CategoryComponent.pageList=res[1];
-      console.log(CategoryComponent.listCate);
+      this.listCate=res[0];
+      this.pageList=res[1];
+      console.log(this.listCate);
     },err=>{
       this.loadscript();
     })
   }
+  // next(){
+  //   // debugger;
+  //     if(CategoryComponent.listCate != null || CategoryComponent.listCate.length > 0){
+  //       if(CategoryComponent.currentPageNumber < CategoryComponent.pageList.length && CategoryComponent.currentPageNumber>=1){
+  //         CategoryComponent.currentPageNumber+=1;
+  //         // if(this.currentPageNumber >= CategoryComponent.listCate.length){
+  //         //   this.currentPageNumber = CategoryComponent.listCate.length;
+  //         // }
+
+  //       }
+  //       combineLatest([
+  //         this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ CategoryComponent.currentPageNumber)
+  //       ]).subscribe(res=>{
+  //         CategoryComponent.listCate = res[0];
+  //           console.log(CategoryComponent.pageList);
+  //           console.log(CategoryComponent.currentPageNumber);
+  //           setTimeout(() => {
+  //             // this.loadscript();
+  //           });
+  //         });
+  //     }
+
+  // }
+  // previous(){
+  //   if((CategoryComponent.listCate != null)){
+  //     if(CategoryComponent.currentPageNumber <= CategoryComponent.pageList.length && CategoryComponent.currentPageNumber>1){
+  //       CategoryComponent.currentPageNumber-=1;
+  //       if(CategoryComponent.currentPageNumber<1) CategoryComponent.currentPageNumber=1;
+
+  //     }
+  //     combineLatest([
+  //       this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ CategoryComponent.currentPageNumber),
+  //     ]).subscribe(res => {
+  //       CategoryComponent.listCate = res[0];
+  //       console.log(CategoryComponent.listCate);
+  //       console.log(CategoryComponent.currentPageNumber);
+  //       setTimeout(() => {
+  //         // this.loadscript();
+  //       });
+  //     });
+  //   }
+  // }
+  // change(value){
+  //   CategoryComponent.currentPageNumber=Number(value);
+  //   combineLatest([
+  //     this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ CategoryComponent.currentPageNumber),
+  //   ]).subscribe(res => {
+  //     CategoryComponent.listCate = res[0];
+  //     // console.log(this.list);
+  //     setTimeout(() => {
+  //       // this.loadscript();
+  //     });
+  //   });
+  // }
+
   next(){
-    // debugger;
-      if(CategoryComponent.listCate != null || CategoryComponent.listCate.length > 0){
-        if(CategoryComponent.currentPageNumber < CategoryComponent.pageList.length && CategoryComponent.currentPageNumber>=1){
-          CategoryComponent.currentPageNumber+=1;
-          // if(this.currentPageNumber >= CategoryComponent.listCate.length){
-          //   this.currentPageNumber = CategoryComponent.listCate.length;
-          // }
-
-        }
-        combineLatest([
-          this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ CategoryComponent.currentPageNumber)
-        ]).subscribe(res=>{
-          CategoryComponent.listCate = res[0];
-            console.log(CategoryComponent.pageList);
-            console.log(CategoryComponent.currentPageNumber);
-            setTimeout(() => {
-              // this.loadscript();
-            });
-          });
-      }
-
-  }
-  previous(){
-    if((CategoryComponent.listCate != null)){
-      if(CategoryComponent.currentPageNumber <= CategoryComponent.pageList.length && CategoryComponent.currentPageNumber>1){
-        CategoryComponent.currentPageNumber-=1;
-        if(CategoryComponent.currentPageNumber<1) CategoryComponent.currentPageNumber=1;
-
+    if((this.state==2)){
+      if(this.currentPageNumber<this.pageList.length ){
+        this.currentPageNumber+=1;
       }
       combineLatest([
-        this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ CategoryComponent.currentPageNumber),
+        this._api.get('/api/LoaiTuiXaches/Search-Loai-Tui-Paginate/'+ this.currentPageNumber +'/'+this.value),
       ]).subscribe(res => {
-        CategoryComponent.listCate = res[0];
-        console.log(CategoryComponent.listCate);
-        console.log(CategoryComponent.currentPageNumber);
+        this.listCate = res[0];
         setTimeout(() => {
-          // this.loadscript();
+          this.loadscript();
         });
-      });
+      }, err => { throw err; });
     }
+    else if(this.state == 1)
+    {
+      if(this.currentPageNumber<this.pageList.length){
+        this.currentPageNumber+=1;
+      }
+      combineLatest([
+        this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ this.currentPageNumber),
+      ]).subscribe(res => {
+        this.listCate = res[0];
+        setTimeout(() => {
+          this.loadscript();
+        });
+      }, err => { throw err; });
   }
-  change(value){
-    CategoryComponent.currentPageNumber=Number(value);
+}
+previous(){
+  if((this.state==2)){
+    if(this.currentPageNumber>=this.pageList.length && this.currentPageNumber>1){
+      this.currentPageNumber-=1;
+    }
     combineLatest([
-      this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ CategoryComponent.currentPageNumber),
+      this._api.get('/api/LoaiTuiXaches/Search-Loai-Tui-Paginate/'+ this.currentPageNumber +'/'+this.value),
     ]).subscribe(res => {
-      CategoryComponent.listCate = res[0];
-      // console.log(this.list);
+      this.listCate = res[0];
       setTimeout(() => {
-        // this.loadscript();
+        this.loadscript();
       });
+    }, err => { throw err; });
+  }
+  else if(this.state == 1)
+  {
+    if(this.currentPageNumber>=this.pageList.length && this.currentPageNumber>1){
+      this.currentPageNumber--;
+      this.currentPage();
+    }
+    combineLatest([
+      this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ this.currentPageNumber),
+    ]).subscribe(res => {
+      this.listCate = res[0];
+      setTimeout(() => {
+        this.loadscript();
+      });
+    }, err => { throw err; });
+}
+}
+change(value){
+  this.currentPageNumber=Number(value);
+  this.currentPage();
+  if(this.state==2){
+
+      combineLatest([
+        this._api.get('/api/LoaiTuiXaches/Search-Loai-Tui-Paginate/'+ this.currentPageNumber +'/'+this.value),
+      ]).subscribe(res => {
+        this.listCate = res[0];
+        setTimeout(() => {
+          this.loadscript();
+        });
+      }, err => { throw err; });
+  }
+  else if(this.state==1){
+    combineLatest([
+      this._api.get('/api/LoaiTuiXaches/Loai-Tui-page/'+ this.currentPageNumber),
+    ]).subscribe(res => {
+      this.listCate = res[0];
+      setTimeout(() => {
+        this.loadscript();
+      });
+    }, err => { throw err; });
+  }
+}
+search(getData){
+  this.value=getData.Seacrh;
+  console.log(this.value);
+  if(this.value)
+  {
+      this.state=2;
+      this.currentPageNumber=1;
+      combineLatest([
+      this._api.get('/api/LoaiTuiXaches/Search-Loai-Tui-Paginate/1/'+this.value),
+      this._api.get('/api/LoaiTuiXaches/Search-Record-count/'+this.value)
+      ]).subscribe(res => {
+      this.listCate = res[0];
+      this.pageList=res[1];
+      console.log(this.listCate);
+      setTimeout(() => {
+        this.loadscript();
+      });
+    }, err => { throw err; });
+    this.formG= new FormGroup({
+      Seacrh:new FormControl('',Validators.maxLength(100))
     });
   }
+  else{
+    this.state=1;
+    this.currentPageNumber=1;
+    combineLatest([
+      this._api.get("/api/LoaiTuiXaches/Loai-Tui-page/1"),
+      this._api.get("/api/LoaiTuiXaches/Loai-Tui-page-count")
+    ]).subscribe(res=>{
+      this.listCate=res[0];
+      this.pageList=res[1];
+    }, err=>{
+      throwError;
+    })
+  }
+}
   staticRecordcount(){
-    return CategoryComponent.pageList;
+    return this.pageList;
   }
   getListCate(){
-    return CategoryComponent.listCate;
+    return this.listCate;
   }
   currentPage(){
-    return CategoryComponent.currentPageNumber;
+    return this.currentPageNumber;
   }
   getList(id){
     combineLatest([
@@ -100,12 +230,12 @@ export class CategoryComponent extends BaseComponent implements OnInit {
       this._api.get("/api/LoaiTuiXaches/Loai-Tui-page/1")
     ]).subscribe(res=>{
       // CategoryComponent.listCate=res[0];
-      CategoryComponent.pageList=res[0];
-      console.log(CategoryComponent.listCate);
-      CategoryComponent.listCate=res[1];
-      CategoryComponent.currentPageNumber=1;
+      this.pageList=res[0];
+      console.log(this.listCate);
+      this.listCate=res[1];
+      this.currentPageNumber=1;
     });
-    CategoryComponent.listCate=CategoryComponent.listCate.filter(res=>{
+    this.listCate=this.listCate.filter(res=>{
       return res.maLoaiTuiXach!=id;
     })
   }

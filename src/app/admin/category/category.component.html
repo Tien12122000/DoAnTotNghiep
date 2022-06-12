@@ -5,13 +5,13 @@
             <div class="title_left">
                 <h4 style = "margin-top: 15px;">Quản lý loại sản phẩm</h4>
             </div>
-            <form method="GET" action="http://localhost/blog/public/searchCate">
+            <form #formG='ngForm' (submit)="search(formG.value)">
                 <input type="hidden" name="_token" value="jkJW0Iqjq6mIBjrU0kODekmzi6k2yWqpnz1ULpHi">
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 form-group pull-right top_search">
                         <div class="input-group">
 
-                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Từ khóa..." value="">
+                            <input id="txtsearch" type="text" ngModel name="Seacrh" class="form-control" placeholder="Từ khóa..." value="">
                             <span class="input-group-btn">
                     <input type="submit" value="Tìm kiếm" class="btn btn-secondary">
                   </span>
@@ -76,12 +76,12 @@
                         </table>
                         <!-- end project list -->
                         <div class="pagination ">
-                            <span (click)="previous() " class=" ">«</span>
+                            <span (click)="previous()" class=" ">«</span>
                             <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
                             <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPage()}} " (change)="change(select.value) ">
                             <option value="{{page}} " *ngFor="let page of staticRecordcount() ">{{page}}</option>
                           </select>
-                            <span class=" " (click)="next() ">»</span>
+                            <span class=" " (click)="next()">»</span>
                         </div>
                     </div>
                 </div>

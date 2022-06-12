@@ -5,13 +5,13 @@
             <div class="title_left">
                 <h4 style = "margin-top: 15px;">Quản lý sản phẩm</h4>
             </div>
-            <form method="GET" action="assets/Search">
+            <form #formG='ngForm' (submit)="search(formG.value)">
                 <input type="hidden" name="_token" value="HaCNtdfthhzeZfCSHJZRQHwIQZJxkvcic97vCp3t">
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5   form-group pull-right top_search">
                         <div class="input-group">
 
-                            <input id="" type="text" name="infor" class="form-control" placeholder="Từ khóa..." value="">
+                            <input id="" type="text" ngModel name="Seacrh" class="form-control" placeholder="Từ khóa..." value="">
                             <span class="input-group-btn">
                               <input type="submit" value="Tìm kiếm" class="btn btn-secondary">
                           </span>
@@ -51,7 +51,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="{{item.maTuiXach}}" *ngFor="let item of list; let r= index">
+                                <tr id="{{item.maTuiXach}}" *ngFor="let item of list; let r=index">
                                     <td>
                                       {{ShowNumrecialOrder(r)}}
                                     </td>
@@ -85,12 +85,12 @@
                         </table>
                         <!-- end project list -->
                         <div class="pagination ">
-                            <span (click)="previous() " class=" ">«</span>
+                            <span (click)="previous()">«</span>
                             <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
-                            <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPage()}} " (change)="change(select.value) ">
-                            <option value="{{page}} " *ngFor="let page of staticRecordcount() ">{{page}}</option>
+                            <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPage()}}" (change)="change(select.value)">
+                            <option value="{{page}}" *ngFor="let page of staticRecordcount()">{{page}}</option>
                           </select>
-                            <span class=" " (click)="next() ">»</span>
+                            <span class=" " (click)="next()">»</span>
                         </div>
 
                     </div>

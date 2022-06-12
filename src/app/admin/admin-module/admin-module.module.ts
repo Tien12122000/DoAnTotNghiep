@@ -14,7 +14,7 @@ import { UpdateCategoryComponent } from '../update-category/update-category.comp
 import { AddCategoryComponent } from '../add-category/add-category.component';
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CKEditorModule } from 'ckeditor4-angular';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { BillDetailComponent } from '../bill-detail/bill-detail.component';
 import { BillToPDFComponent } from '../bill-to-pdf/bill-to-pdf.component';
@@ -47,6 +47,7 @@ import { AuthorizeService } from 'src/app/core/authorize.service';
     CKEditorModule,
     ReactiveFormsModule,
     NzPopconfirmModule,
+    FormsModule,
     RouterModule.forChild([
       {path: "",component:DashboardComponent},
       {path: "Datable", component: DataTableComponent},
