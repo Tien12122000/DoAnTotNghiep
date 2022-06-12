@@ -70,7 +70,7 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
   }
   previous(){
     if((this.state==2)){
-      if(this.currentPageNumber>=this.listPage.length && this.currentPageNumber>1){
+      if(this.currentPageNumber<=this.listPage.length && this.currentPageNumber>1){
         this.currentPageNumber-=1;
       }
       combineLatest([
@@ -84,7 +84,7 @@ export class DataTableComponent extends BaseComponent implements OnInit, AfterVi
     }
     else if(this.state == 1)
     {
-      if(this.currentPageNumber>=this.listPage.length && this.currentPageNumber>1){
+      if(this.currentPageNumber<=this.listPage.length && this.currentPageNumber>1){
         this.currentPageNumber--;
         this.currentPage();
       }
