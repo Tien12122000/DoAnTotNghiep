@@ -23,14 +23,23 @@ export class BillDetailComponent extends BaseComponent implements OnInit {
       this.id=params.get('id');
     });
     console.log(this.id);
-    let listDetail=this._api.get("/api/ChiTietDonHang/sp_ChiTietDonHang_Paginate_By_ID/1/"+this.id).toPromise();
-    listDetail.then(data=>{
-      this.listBillDetail=data;
-      console.log(this.listBillDetail);
-    });
-    let listPages=this._api.get("/api/ChiTietDonHang/get-Chi-Tiet-Don-Hang-Record-count/"+this.id).toPromise();
-    listPages.then(data=>{
-      this.listPage=data;
+    // let listDetail=this._api.get("/api/ChiTietDonHang/sp_ChiTietDonHang_Paginate_By_ID/1/"+this.id).toPromise();
+    // listDetail.then(data=>{
+    //   this.listBillDetail=data;
+    //   console.log(this.listBillDetail);
+    // });
+    // let listPages=this._api.get("/api/ChiTietDonHang/get-Chi-Tiet-Don-Hang-Record-count/"+this.id).toPromise();
+    // listPages.then(data=>{
+    //   this.listPage=data;
+    // });
+    combineLatest([
+      this._api.get("/api/ChiTietDonHang/sp_ChiTietDonHang_Paginate_By_ID/1/"+this.id),
+      this._api.get("/api/ChiTietDonHang/get-Chi-Tiet-Don-Hang-Record-count/"+this.id)
+    ]).subscribe(res=>{
+      this.listBillDetail = res[0];
+      this.listPage=res[1];
+      setTimeout(() => {
+      }, 500);
     });
   };
   listBill:any;
