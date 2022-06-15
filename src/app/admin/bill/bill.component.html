@@ -1,115 +1,233 @@
 <app-header></app-header>
-<div class="right_col" role="main" style="min-height: 1048px;">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h4 style = "margin-top: 15px;">Quản lý đơn hàng</h4>
+<div class="right_col" role="main" style="min-height: 1048px">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h4 style="margin-top: 15px">Quản lý đơn hàng</h4>
+      </div>
+      <form method="GET" action="http://localhost/blog/public/Search-Don-Hang">
+        <input
+          type="hidden"
+          name="_token"
+          value="NJ2DIsNpR8sjMF6al84K3pWYGPI3Bwlvu70EzVmw"
+        />
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+            <div class="input-group">
+              <input
+                id="txtsearch"
+                type="text"
+                name="infor"
+                class="form-control"
+                placeholder="Từ khóa..."
+                value=""
+              />
+              <span class="input-group-btn">
+                <input
+                  type="submit"
+                  value="Tìm kiếm"
+                  class="btn btn-secondary"
+                />
+              </span>
             </div>
-            <form method="GET" action="http://localhost/blog/public/Search-Don-Hang">
-                <input type="hidden" name="_token" value="NJ2DIsNpR8sjMF6al84K3pWYGPI3Bwlvu70EzVmw">
-                <div class="title_right">
-                    <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                        <div class="input-group">
-
-                            <input id="txtsearch" type="text" name="infor" class="form-control" placeholder="Từ khóa..." value="">
-                            <span class="input-group-btn">
-                              <input type="submit" value="Tìm kiếm" class="btn btn-secondary">
-                          </span>
-                        </div>
-                    </div>
-                </div>
-            </form>
+          </div>
         </div>
-        <div class="clearfix"></div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Danh sách đơn hàng</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
-                            </li>
-
-                            <li><a class="close-link"><i class="fa fa-close" aria-hidden="true"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <!-- start project list -->
-                        <table class="table table-striped projects">
-                            <thead>
-                                <tr>
-                                    <th style="width: 1%">Mã</th>
-                                    <th style="width: 13%">Tên khách hàng</th>
-                                    <th style="width: 10%">Ngày đặt hàng</th>
-                                    <th style="width: 17%">Địa chỉ</th>
-                                    <th style="width: 10%">Số điện thoại</th>
-                                    <th style="width: 15%">Trạng thái</th>
-                                    <th style="width: 10%">Tổng tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="{{item.maDonHang}}" *ngFor="let item of listBill">
-                                    <td>{{item.maDonHang}}
-                                    </td>
-                                    <td>
-                                        <a>{{item.tenKhachHang}}</a>
-                                    </td>
-                                    <td>
-                                        <a>{{item.ngayDatHang|date}}</a>
-                                    </td>
-                                    <td>
-                                        <a>{{item.diaChiGiaoHang}}</a>
-                                    </td>
-                                    <td>
-                                        <a>{{item.soDienThoai}}</a>
-                                    </td>
-                                    <td>
-                                        <h6>
-                                            <select #select name="" id="">
-                                                      <option value="{{item.trangThaiDonHang}}">{{item.trangThaiDonHang}}</option>
-                                                      <option value="Unfinished">Unfinished</option>
-                                                      <option value="Receive">Receive</option>
-                                                      <option value="Pack">Pack</option>
-                                                      <option value="Delivering">Delivering</option>
-                                                      <option value="Delivered">Delivered</option>
-                                                  </select>
-                                        </h6>
-                                    </td>
-                                    <td>
-                                        <h4>{{item.tongTien|number}} Đ</h4>
-                                    </td>
-                                    <td>
-                                        <button href="#" (click)="onUpdate(item.maDonHang,select.value)" class="btn btn-primary btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i> Đổi
-                                                  trạng
-                                                  thái
-                                              </button>
-                                        <a [routerLink]="['/admin/Bill-Detail',item.maDonHang]" class="btn btn-info btn-xs"><i class="fa fa-folder" aria-hidden="true"></i> Xem Chi
-                                                  tiết </a>
-                                        <a (click)="pdfExport(item.maDonHang)" class="btn btn-danger btn-xs"><i class="fas fa-file-download" aria-hidden="true"></i> Lấy hóa đơn
-                                              </a>
-                                        <button (click)="onDelete(item.maDonHang)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o" aria-hidden="true"></i> Hủy đơn
-                                              </button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <!-- end project list -->
-                        <div class="pagination ">
-                            <span (click)="previous() " class=" ">«</span>
-                            <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
-                            <select #select style="outline: none; width: 10%; float: left; margin-left: 0px; margin-top: 1px; " value="{{currentPageNumber}} " (change)="change(select.value) ">
-                          <option value="{{page}} " *ngFor="let page of listPage ">{{page}}</option>
-                        </select>
-                            <span class=" " (click)="next() ">»</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </form>
     </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Danh sách đơn hàng</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li>
+                <a class="collapse-link"
+                  ><i class="fa fa-chevron-up" aria-hidden="true"></i
+                ></a>
+              </li>
+
+              <li>
+                <a class="close-link"
+                  ><i class="fa fa-close" aria-hidden="true"></i
+                ></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <!-- start project list -->
+            <table class="table table-striped projects">
+              <thead>
+                <tr>
+                  <th style="width: 1%">Mã</th>
+                  <th style="width: 13%">Tên khách hàng</th>
+                  <th style="width: 10%">Ngày đặt hàng</th>
+                  <th style="width: 17%">Địa chỉ</th>
+                  <th style="width: 10%">Số điện thoại</th>
+                  <th style="width: 15%">Trạng thái</th>
+                  <th style="width: 10%">Tổng tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="{{ item.maDonHang }}" *ngFor="let item of listBill">
+                  <td>{{ item.maDonHang }}</td>
+                  <td>
+                    <a>{{ item.tenKhachHang }}</a>
+                  </td>
+                  <td>
+                    <a>{{ item.ngayDatHang | date }}</a>
+                  </td>
+                  <td>
+                    <a>{{ item.diaChiGiaoHang }}</a>
+                  </td>
+                  <td>
+                    <a>{{ item.soDienThoai }}</a>
+                  </td>
+                  <td>
+                    <h6>
+                      <select
+                        *ngIf="
+                          item.trangThaiDonHang.trim().toLocaleLowerCase() !=
+                          'Cancled'.toLocaleLowerCase()
+                        "
+                        #select
+                        name=""
+                        id=""
+                      >
+                        <option value="{{item.trangThaiDonHang}}">
+                          {{ item.trangThaiDonHang }}
+                        </option>
+                        <option value="Unfinished">Unfinished</option>
+                        <option value="Receive">Receive</option>
+                        <option value="Pack">Pack</option>
+                        <option value="Delivering">Delivering</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                      <select
+                        disabled
+                        *ngIf="
+                          item.trangThaiDonHang.trim().toLocaleLowerCase() ==
+                          'Cancled'.toLocaleLowerCase()
+                        "
+                        #select
+                        name=""
+                        id=""
+                      >
+                        <option value="{{item.trangThaiDonHang}}">
+                          {{item.trangThaiDonHang}}
+                        </option>
+                        <option value="Unfinished">Unfinished</option>
+                        <option value="Receive">Receive</option>
+                        <option value="Pack">Pack</option>
+                        <option value="Delivering">Delivering</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    </h6>
+                  </td>
+                  <td>
+                    <h4>{{ item.tongTien | number }} Đ</h4>
+                  </td>
+                  <td>
+                    <button
+                      *ngIf="
+                        item.trangThaiDonHang.trim().toLocaleLowerCase() !=
+                        'Cancled'.toLocaleLowerCase()
+                      "
+                      href="#"
+                      (click)="onUpdate(item.maDonHang)"
+                      class="btn btn-primary btn-xs"
+                    >
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                      Đổi trạng thái
+                    </button>
+                    <button
+                      disabled
+                      *ngIf="
+                        item.trangThaiDonHang.trim().toLocaleLowerCase() ==
+                        'Cancled'.toLocaleLowerCase()
+                      "
+                      href="#"
+                      (click)="onUpdate(item.maDonHang)"
+                      class="btn btn-primary btn-xs"
+                    >
+                      <i class="fa fa-pencil" aria-hidden="true"></i> Đổi trạng
+                      thái
+                    </button>
+
+                    <a
+                      [routerLink]="['/admin/Bill-Detail', item.maDonHang]"
+                      class="btn btn-info btn-xs"
+                      ><i class="fa fa-folder" aria-hidden="true"></i> Xem Chi
+                      tiết
+                    </a>
+                    <!-- <a *ngIf="item.trangThaiDonHang.trim().toLocaleLowerCase() !='Cancled'.toLocaleLowerCase()" (click)="pdfExport(item.maDonHang)" class="btn btn-danger btn-xs"><i class="fas fa-file-download" aria-hidden="true"></i> Lấy hóa đơn
+                                              </a> -->
+
+                    <button
+                      style="color: black"
+                      *ngIf="
+                        item.trangThaiDonHang.trim().toLocaleLowerCase() !='Cancled'.toLocaleLowerCase()" (click)="pdfExport(item.maDonHang)"
+                      class="btn btn-danger btn-xs"
+                    >
+                      <i class="fas fa-file-download" aria-hidden="true"></i>
+                      Lấy hóa đơn
+                    </button>
+                    <button
+                      style="color: black"
+                      disabled
+                      *ngIf="
+                        item.trangThaiDonHang.trim().toLocaleLowerCase() =='Cancled'.toLocaleLowerCase()" (click)="pdfExport(item.maDonHang)"
+                      class="btn btn-danger btn-xs"
+                    >
+                      <i class="fas fa-file-download" aria-hidden="true"></i>
+                      Lấy hóa đơn
+                    </button>
+                    <button
+                      *ngIf="
+                        item.trangThaiDonHang.trim().toLocaleLowerCase() !='Cancled'.toLocaleLowerCase()" (click)="onDelete(item.maDonHang)"
+                      class="btn btn-danger btn-xs"
+                    >
+                      <i class="fa fa-trash-o" aria-hidden="true"></i> Hủy đơn
+                    </button>
+                    <button
+                      disabled
+                      *ngIf="item.trangThaiDonHang.trim().toLocaleLowerCase() =='Cancled'.toLocaleLowerCase()" (click)="onDelete(item.maDonHang)"
+                      class="btn btn-danger btn-xs"
+                    >
+                      <i class="fa fa-trash-o" aria-hidden="true"></i> Hủy đơn
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- end project list -->
+            <div class="pagination">
+              <span (click)="previous()" class=" ">«</span>
+              <!-- <span *ngFor="let page of listTotalHomeRecord ">{{page}}</span> -->
+              <select
+                #select
+                style="
+                  outline: none;
+                  width: 10%;
+                  float: left;
+                  margin-left: 0px;
+                  margin-top: 1px;
+                "
+                value="{{ currentPageNumber }} "
+                (change)="change(select.value)"
+              >
+                <option value="{{ page }} " *ngFor="let page of listPage">
+                  {{ page }}
+                </option>
+              </select>
+              <span class=" " (click)="next()">»</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <app-footer></app-footer>
