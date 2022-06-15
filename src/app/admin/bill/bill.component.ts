@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { BaseComponent } from 'src/app/core/base/base.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-bill',
@@ -21,6 +22,10 @@ export class BillComponent extends BaseComponent implements OnInit {
     // console.log(list);
     list.then((data)=>{
       this.listBill = data;
+      setTimeout(() => {
+
+        this.RemoveOption();
+      }, 1000);
       // console.log(this.listBill);
     }).catch((error)=>{
       console.log("Promise rejected with " + JSON.stringify(error));
@@ -32,6 +37,10 @@ export class BillComponent extends BaseComponent implements OnInit {
     listRecord.then((data)=>{
       this.listPage = data;
       console.log(JSON.stringify(data));
+      setTimeout(() => {
+
+        this.RemoveOption();
+      }, 1000);
     }).catch((error)=>{
       console.log("Promise rejected with " + JSON.stringify(error));
     });
@@ -53,12 +62,11 @@ export class BillComponent extends BaseComponent implements OnInit {
           this._api.get('/api/DonHangControllerr/Danh-Sach-Don-Hang-paginate/'+ this.currentPageNumber)
         ]).subscribe(res=>{
           this.listBill = res[0];
-            // console.log(this.listPage);
-            // console.log(this.currentPageNumber);
-            setTimeout(() => {
-              // this.loadscript();
-            });
-          });
+
+          setTimeout(() => {
+            this.RemoveOption();
+          }, 500);
+        });
       }
 
   }
@@ -74,8 +82,9 @@ export class BillComponent extends BaseComponent implements OnInit {
       ]).subscribe(res => {
         this.listBill = res[0];
         setTimeout(() => {
-          // this.loadscript();
-        });
+
+          this.RemoveOption();
+        }, 500);
       });
     }
   }
@@ -85,8 +94,13 @@ export class BillComponent extends BaseComponent implements OnInit {
       this._api.get('/api/DonHangControllerr/Danh-Sach-Don-Hang-paginate/'+ this.currentPageNumber),
     ]).subscribe(res => {
       this.listBill = res[0];
+      setTimeout(() => {
+
+        this.RemoveOption();
+      }, 500);
       // console.log(this.list);
       setTimeout(() => {
+        this.listBill = res[0];
         // this.loadscript();
       });
     });
@@ -116,9 +130,11 @@ export class BillComponent extends BaseComponent implements OnInit {
     }
     if(bool==true)
     combineLatest([
-      this._api.get("/api/DonHangControllerr/Del-Don-Hang/"+ id)
+      // this._api.get("/api/DonHangControllerr/Del-Don-Hang/"+ id)
+      this._api.get("/api/DonHangControllerr/cap-nhat-don-hang/"+id+"/Cancled")
     ]).subscribe(res=>{
       this.getList(id);
+      $("#"+id).find("select").prop('disabled', true);
       alert("Xóa thành công");
     },
     (error)=>{
@@ -145,7 +161,37 @@ export class BillComponent extends BaseComponent implements OnInit {
   // }
   // id:any;
   // status:any;
-  onUpdate(id,status){
+  RemoveOption(){
+    var value=$("select").val();
+    $("select").each(function(e){
+      if($(this).val().trim().toLocaleLowerCase()=='Receive'.trim().toLocaleLowerCase()){
+        $(this).find('option[value="Unfinished"]').remove();
+      }
+      if($(this).val().trim().toLocaleLowerCase()=='Pack'.trim().toLocaleLowerCase()){
+        $(this).find('option[value="Unfinished"]').remove();
+        $(this).find('option[value="Receive"]').remove();
+      }
+      if($(this).val().trim().toLocaleLowerCase()=='Delivering'.trim().toLocaleLowerCase()){
+        $(this).find('option[value="Unfinished"]').remove();
+        $(this).find('option[value="Receive"]').remove();
+        $(this).find('option[value="Pack"]').remove();
+      }
+      if($(this).val().trim().toLocaleLowerCase()=='Delivered'.trim().toLocaleLowerCase()){
+        $(this).find('option[value="Unfinished"]').remove();
+        $(this).find('option[value="Receive"]').remove();
+        $(this).find('option[value="Pack"]').remove();
+        $(this).find('option[value="Delivering"]').remove();
+      }
+      if($(this).val().trim().toLocaleLowerCase()=='Cancled'.trim().toLocaleLowerCase()){
+        $(this).find('option[value="Unfinished"]').remove();
+        $(this).find('option[value="Receive"]').remove();
+        $(this).find('option[value="Pack"]').remove();
+        $(this).find('option[value="Delivering"]').remove();
+        $(this).find('option[value="Delivered"]').remove();
+      }
+    })
+  }
+  onUpdate(id){
     var user=JSON.parse(localStorage.getItem('accessToken'));
     if(user){
       var bool=false;
@@ -160,15 +206,17 @@ export class BillComponent extends BaseComponent implements OnInit {
        }
     }
     if(bool==true)
-    combineLatest([
-      this._api.get("/api/DonHangControllerr/cap-nhat-don-hang/"+id+"/"+status)
-    ]).subscribe(res=>{
-      alert("Cập nhật thành công");
-    },err=>{
-      alert("Thao tác thất bại");
-    });
-    alert(id);
-    alert(status);
+    {
+      var value=$("#"+id).find("select").val();
+      combineLatest([
+        this._api.get("/api/DonHangControllerr/cap-nhat-don-hang/" + id + "/"+ value)
+      ]).subscribe(res=>{
+        this.RemoveOption();
+        alert("Cập nhật thành công");
+      },err=>{
+        alert("Thao tác thất bại");
+      });
+    }
   }
   pdfExport(id){
     var user=JSON.parse(localStorage.getItem('accessToken'));
