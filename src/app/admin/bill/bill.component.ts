@@ -135,7 +135,7 @@ export class BillComponent extends BaseComponent implements OnInit {
     ]).subscribe(res=>{
       this.getList(id);
       $("#"+id).find("select").prop('disabled', true);
-      alert("Xóa thành công");
+      alert("Cập nhật thành công");
     },
     (error)=>{
       alert("Thao tác thất bại");
