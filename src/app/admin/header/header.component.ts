@@ -20,7 +20,7 @@ export class HeaderComponent extends BaseComponent implements OnInit, AfterViewI
   ngAfterViewInit(): void {
     this.loadscript();
     this.picture=HeaderComponent.info.picture;
-    this.name=HeaderComponent.info.family_name;
+    this.name=HeaderComponent.info.given_name;
   }
   logout(){
     this.accountService.logout();
